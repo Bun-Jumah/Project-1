@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Get in touch with us. Send a message through our modern, glassmorphic interactive contact form.">
+  <title>Contact - Greeting App</title>
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* CSS Variables & Theme Definitions */
+    :root {
+      --bg-light: #f3f4f6;
+      --bg-dark: #08090d;
+      
+      --card-bg-light: rgba(255, 255, 255, 0.45);
+      --card-bg-dark: rgba(13, 16, 23, 0.45);
+      
+      --text-light: #1f2937;
+      --text-dark: #f3f4f6;
+      
+      --text-secondary-light: #4b5563;
+      --text-secondary-dark: #9ca3af;
+      
+      --border-light: rgba(255, 255, 255, 0.4);
+      --border-dark: rgba(255, 255, 255, 0.08);
+      
+      --accent-light: #4f46e5;
+      --accent-dark: #6366f1;
+      
+      --glow-light: rgba(79, 70, 229, 0.08);
+      --glow-dark: rgba(99, 102, 241, 0.18);
+      
+      --shadow-light: rgba(0, 0, 0, 0.08);
+      --shadow-dark: rgba(0, 0, 0, 0.4);
+
+      color-scheme: light dark;
+      
+      --bg: light-dark(var(--bg-light), var(--bg-dark));
+      --card-bg: light-dark(var(--card-bg-light), var(--card-bg-dark));
+      --text: light-dark(var(--text-light), var(--text-dark));
+      --text-secondary: light-dark(var(--text-secondary-light), var(--text-secondary-dark));
+      --border: light-dark(var(--border-light), var(--border-dark));
+      --accent: light-dark(var(--accent-light), var(--accent-dark));
+      --glow: light-dark(var(--glow-light), var(--glow-dark));
+      --shadow: light-dark(var(--shadow-light), var(--shadow-dark));
+
+      --spring-easing: linear(0, 0.016 0.5%, 0.06 1%, 0.226 2%, 1.116 5.4%, 1.375 6.6%, 1.527 7.7%, 1.565 8.2%, 1.585 8.8%, 1.581 9.3%, 1.559 9.8%, 1.458 10.9%, 0.937 14.3%, 0.784 15.5%, 0.693 16.6%, 0.67 17.1%, 0.657 17.7%, 0.671 18.7%, 0.729 19.8%, 1.042 23.3%, 1.13 24.5%, 1.182 25.6%, 1.201 26.7%, 1.192 27.7%, 1.156 28.8%, 0.977 32.2%, 0.925 33.4%, 0.894 34.5%, 0.882 35.6%, 0.887 36.6%, 0.907 37.7%, 1.045 42.4%, 1.069 44.5%, 1.059 46.3%, 0.979 50.9%, 0.96 53.4%, 0.966 55.3%, 1.013 59.9%, 1.024 62.3%, 0.986 71.2%, 1.008 79.9%, 0.995 88.9%, 1);
+    }
+
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: var(--bg-light);
+      --card-bg: var(--card-bg-light);
+      --text: var(--text-light);
+      --text-secondary: var(--text-secondary-light);
+      --border: var(--border-light);
+      --accent: var(--accent-light);
+      --glow: var(--glow-light);
+      --shadow: var(--shadow-light);
+    }
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: var(--bg-dark);
+      --card-bg: var(--card-bg-dark);
+      --text: var(--text-dark);
+      --text-secondary: var(--text-secondary-dark);
+      --border: var(--border-dark);
+      --accent: var(--accent-dark);
+      --glow: var(--glow-dark);
+      --shadow: var(--shadow-dark);
+    }
+
+    /* Core Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      overflow-x: hidden;
+      position: relative;
+      transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mesh-gradient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: 
+        radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--glow) 0%, transparent 60%),
+        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.06) 0%, transparent 35%),
+        radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.06) 0%, transparent 35%);
+      opacity: 1;
+      transition: background-image 0.1s ease;
+    }
+
+    #particle-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    header {
+      width: 100%;
+      max-width: 1200px;
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 3;
+    }
+
+    .nav-bar {
+      display: flex;
+      gap: 0.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.8rem;
+      border-radius: 30px;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 4px 12px var(--shadow);
+      z-index: 4;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.3s ease, transform 0.3s var(--spring-easing), background-color 0.3s ease;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .nav-link.active {
+      color: var(--accent);
+      background: rgba(99, 102, 241, 0.08);
+    }
+
+    .theme-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px var(--shadow);
+      transition: scale 0.5s var(--spring-easing), border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      scale: 1.1;
+      border-color: var(--accent);
+    }
+
+    .theme-toggle:active {
+      scale: 0.95;
+    }
+
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: var(--text);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.5s var(--spring-easing), stroke 0.3s ease;
+    }
+
+    .theme-toggle:hover svg {
+      stroke: var(--accent);
+      transform: rotate(15deg);
+    }
+
+    main {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 2rem;
+      z-index: 2;
+    }
+
+    .card-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 540px;
+    }
+
+    .card-wrapper::before {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      background: linear-gradient(135deg, var(--accent), #d946ef);
+      border-radius: 28px;
+      z-index: -1;
+      opacity: 0.2;
+      filter: blur(20px);
+      transition: opacity 0.5s ease;
+    }
+
+    .card-wrapper:hover::before {
+      opacity: 0.45;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      backdrop-filter: blur(25px) saturate(180%);
+      -webkit-backdrop-filter: blur(25px) saturate(180%);
+      box-shadow: 0 20px 40px var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      transition: transform 0.8s var(--spring-easing), border-color 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
+    }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.01);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .badge {
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      color: var(--accent);
+      padding: 0.35rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+      text-wrap: balance;
+      background: linear-gradient(135deg, var(--text) 30%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      user-select: none;
+    }
+
+    p.subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      text-align: center;
+      text-wrap: pretty;
+    }
+
+    /* Contact Form styling */
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.9rem 1.1rem;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--text);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+      outline: none;
+    }
+
+    input:focus, textarea:focus {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .action-button {
+      background: linear-gradient(135deg, var(--accent) 0%, #7c3aed 100%);
+      color: #ffffff;
+      border: none;
+      padding: 1rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      margin-top: 0.75rem;
+      transition: scale 0.5s var(--spring-easing), box-shadow 0.3s ease;
+    }
+
+    .action-button:hover {
+      scale: 1.04;
+      box-shadow: 0 12px 28px rgba(99, 102, 241, 0.5);
+    }
+
+    .action-button:active {
+      scale: 0.97;
+    }
+
+    /* Modal / Success Toast Overlay */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: 0 16px 32px var(--shadow);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      z-index: 10;
+      transform: translateY(150%) scale(0.9);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.5s var(--spring-easing), opacity 0.3s ease;
+    }
+
+    .toast.show {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .toast-icon {
+      color: #10b981;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .toast-text {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    footer {
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+      z-index: 2;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      position: relative;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    footer a::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      bottom: -2px;
+      left: 0;
+      background-color: var(--accent);
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+
+    footer a:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card, .theme-toggle, .action-button, .theme-toggle svg, .toast {
+        transition: none !important;
+        scale: 1 !important;
+        transform: none !important;
+      }
+      
+      .mesh-gradient {
+        background-image: radial-gradient(circle at 50% 50%, var(--glow) 0%, transparent 60%);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Backdrop Elements -->
+  <div class="mesh-gradient" id="bg-glow" aria-hidden="true"></div>
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- Header Section with Theme Toggle and Navigation -->
+  <header>
+    <nav class="nav-bar" aria-label="Main Navigation">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link active">Contact</a>
+    </nav>
+    <button class="theme-toggle" id="theme-button" aria-label="Toggle light and dark mode">
+      <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="card-wrapper">
+      <section class="card">
+        <span class="badge">Get In Touch</span>
+        <h1>Send A Message</h1>
+        <p class="subtitle">Drop us a line and experience the interactive submission effects.</p>
+        
+        <!-- Contact Form -->
+        <form id="contact-form" novalidate>
+          <div class="form-group">
+            <label for="form-name">Name</label>
+            <input type="text" id="form-name" placeholder="John Doe" required autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="form-email">Email</label>
+            <input type="email" id="form-email" placeholder="john@example.com" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="form-message">Message</label>
+            <textarea id="form-message" placeholder="Type your message here..." required></textarea>
+          </div>
+          <button type="submit" class="action-button" id="submit-btn">
+            <span>Send Message</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- Toast Notification Overlay -->
+  <div class="toast" id="success-toast" role="alert" aria-live="assertive">
+    <div class="toast-icon">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <div class="toast-text">Message sent successfully!</div>
+  </div>
+
+  <!-- Footer Info -->
+  <footer>
+    <p>Crafted with premium UI styling &bull; <a href="https://github.com" target="_blank" rel="noopener">Learn More</a></p>
+  </footer>
+
+  <script>
+    // Theme Manager
+    const themeButton = document.getElementById('theme-button');
+    const themeIcon = document.getElementById('theme-icon');
+    const rootEl = document.documentElement;
+
+    const sunPath = "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z";
+    const moonPath = "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z";
+
+    function updateThemeIcon(isDark) {
+      themeIcon.querySelector('path').setAttribute('d', isDark ? moonPath : sunPath);
+    }
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    let currentTheme = localStorage.getItem('theme');
+    if (!currentTheme) {
+      currentTheme = mediaQuery.matches ? 'dark' : 'light';
+    }
+    rootEl.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme === 'dark');
+
+    themeButton.addEventListener('click', (e) => {
+      const nextTheme = rootEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      rootEl.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('theme', nextTheme);
+      updateThemeIcon(nextTheme === 'dark');
+      createBurst(e.clientX, e.clientY, 15);
+    });
+
+    mediaQuery.addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        const nextTheme = e.matches ? 'dark' : 'light';
+        rootEl.setAttribute('data-theme', nextTheme);
+        updateThemeIcon(nextTheme === 'dark');
+      }
+    });
+
+    // Interactive Backdrop Mouse-Tracking
+    const bgGlow = document.getElementById('bg-glow');
+    let targetX = 50, targetY = 50;
+    let currentX = 50, currentY = 50;
+
+    window.addEventListener('mousemove', (e) => {
+      targetX = (e.clientX / window.innerWidth) * 100;
+      targetY = (e.clientY / window.innerHeight) * 100;
+    });
+
+    function updateGlowPosition() {
+      currentX += (targetX - currentX) * 0.1;
+      currentY += (targetY - currentY) * 0.1;
+      bgGlow.style.setProperty('--mouse-x', `${currentX}%`);
+      bgGlow.style.setProperty('--mouse-y', `${currentY}%`);
+      requestAnimationFrame(updateGlowPosition);
+    }
+    updateGlowPosition();
+
+    // Canvas Particle Engine
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor(x, y, color = null) {
+        this.x = x;
+        this.y = y;
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = 1.5 + Math.random() * 4;
+        this.vx = Math.cos(angle) * velocity;
+        this.vy = Math.sin(angle) * velocity - 0.5;
+        this.radius = 1.5 + Math.random() * 3;
+        this.color = color || getThemeAccentColor();
+        this.alpha = 1;
+        this.decay = 0.01 + Math.random() * 0.015;
+        this.gravity = 0.1;
+      }
+
+      update() {
+        this.vy += this.gravity;
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= this.decay;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function getThemeAccentColor() {
+      const theme = rootEl.getAttribute('data-theme');
+      return theme === 'dark' ? '#6366f1' : '#4f46e5';
+    }
+
+    function createBurst(x, y, count, confetti = false) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const colors = confetti ? ['#6366f1', '#a855f7', '#ec4899', '#3b82f6', '#10b981'] : [getThemeAccentColor()];
+      for (let i = 0; i < count; i++) {
+        const randColor = colors[Math.floor(Math.random() * colors.length)];
+        particles.push(new Particle(x, y, randColor));
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.update();
+        if (p.alpha <= 0) {
+          particles.splice(i, 1);
+        } else {
+          p.draw();
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    window.addEventListener('mousemove', (e) => {
+      if (Math.random() < 0.08) {
+        createBurst(e.clientX, e.clientY, 1);
+      }
+    });
+
+    // ----------------------------------------------------
+    // Form Submission & Success Toast Interaction
+    // ----------------------------------------------------
+    const form = document.getElementById('contact-form');
+    const toast = document.getElementById('success-toast');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Perform simple validation check
+      if (!form.checkValidity()) {
+        // Trigger default HTML5 validation UI
+        form.reportValidity();
+        return;
+      }
+
+      // Trigger Confetti Burst at button coordinates
+      const rect = submitBtn.getBoundingClientRect();
+      const burstX = rect.left + rect.width / 2;
+      const burstY = rect.top + rect.height / 2;
+      createBurst(burstX, burstY, 60, true);
+
+      // Show Success Toast
+      toast.classList.add('show');
+      
+      // Reset Form fields
+      form.reset();
+
+      // Automatically hide toast notification after 4s
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    });
+  </script>
+</body>
+</html>
