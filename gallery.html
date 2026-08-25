@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="An interactive, premium, and beautiful Hello World showcase utilizing modern web standards, spring physics animations, and custom theme layouts.">
-  <title>Hello World Showcase</title>
+  <meta name="description" content="View our curated gallery of premium futuristic digital concepts, showcasing high-fidelity UX designs.">
+  <title>Gallery - Greeting App</title>
   
   <!-- Modern Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,7 +38,6 @@
       --shadow-light: rgba(0, 0, 0, 0.08);
       --shadow-dark: rgba(0, 0, 0, 0.4);
 
-      /* Standard light-dark fallback setup */
       color-scheme: light dark;
       
       --bg: light-dark(var(--bg-light), var(--bg-dark));
@@ -50,11 +49,9 @@
       --glow: light-dark(var(--glow-light), var(--glow-dark));
       --shadow: light-dark(var(--shadow-light), var(--shadow-dark));
 
-      /* Spring Easing stops generated using physics-based curves */
       --spring-easing: linear(0, 0.016 0.5%, 0.06 1%, 0.226 2%, 1.116 5.4%, 1.375 6.6%, 1.527 7.7%, 1.565 8.2%, 1.585 8.8%, 1.581 9.3%, 1.559 9.8%, 1.458 10.9%, 0.937 14.3%, 0.784 15.5%, 0.693 16.6%, 0.67 17.1%, 0.657 17.7%, 0.671 18.7%, 0.729 19.8%, 1.042 23.3%, 1.13 24.5%, 1.182 25.6%, 1.201 26.7%, 1.192 27.7%, 1.156 28.8%, 0.977 32.2%, 0.925 33.4%, 0.894 34.5%, 0.882 35.6%, 0.887 36.6%, 0.907 37.7%, 1.045 42.4%, 1.069 44.5%, 1.059 46.3%, 0.979 50.9%, 0.96 53.4%, 0.966 55.3%, 1.013 59.9%, 1.024 62.3%, 0.986 71.2%, 1.008 79.9%, 0.995 88.9%, 1);
     }
 
-    /* Override variables if data-theme attribute is set by toggle */
     :root[data-theme="light"] {
       color-scheme: light;
       --bg: var(--bg-light);
@@ -100,7 +97,6 @@
       transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Interactive Mesh Grid Backdrop */
     .mesh-gradient {
       position: absolute;
       top: 0;
@@ -117,7 +113,6 @@
       transition: background-image 0.1s ease;
     }
 
-    /* Canvas overlay for particle burst effects */
     #particle-canvas {
       position: absolute;
       top: 0;
@@ -128,7 +123,6 @@
       pointer-events: none;
     }
 
-    /* Header controls */
     header {
       width: 100%;
       max-width: 1200px;
@@ -213,7 +207,6 @@
       transform: rotate(15deg);
     }
 
-    /* Main Container & Card */
     main {
       flex-grow: 1;
       display: flex;
@@ -227,10 +220,9 @@
     .card-wrapper {
       position: relative;
       width: 100%;
-      max-width: 580px;
+      max-width: 1000px;
     }
 
-    /* Card glow shadow */
     .card-wrapper::before {
       content: '';
       position: absolute;
@@ -262,16 +254,11 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      width: 100%;
       transition: transform 0.8s var(--spring-easing), border-color 0.3s ease, box-shadow 0.3s ease;
       will-change: transform;
     }
 
-    .card:hover {
-      transform: translateY(-8px) scale(1.015);
-      border-color: rgba(99, 102, 241, 0.4);
-    }
-
-    /* Microbadge */
     .badge {
       background: rgba(99, 102, 241, 0.1);
       border: 1px solid rgba(99, 102, 241, 0.2);
@@ -282,80 +269,169 @@
       font-weight: 600;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       display: inline-block;
-      animation: pulse 3s infinite ease-in-out;
     }
 
-    /* Headings Layout Optimization */
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
+      font-size: 2.8rem;
       font-weight: 600;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-      text-wrap: balance; /* Modern text legibility guidance style */
+      line-height: 1.25;
+      margin-bottom: 1.25rem;
+      text-wrap: balance;
       background: linear-gradient(135deg, var(--text) 30%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      transition: transform 0.4s var(--spring-easing), opacity 0.2s ease;
       user-select: none;
     }
 
-    h1.switching {
-      transform: scale(0.92);
-      opacity: 0;
-    }
-
-    /* Body Text Legibility Optimization */
     p.description {
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: var(--text-secondary);
       line-height: 1.6;
       margin-bottom: 2.5rem;
-      max-width: 440px;
-      text-wrap: pretty; /* Modern text legibility guidance style */
+      max-width: 600px;
+      text-wrap: pretty;
     }
 
-    /* Button and Interactive Elements */
-    .action-button {
-      background: linear-gradient(135deg, var(--accent) 0%, #7c3aed 100%);
-      color: #ffffff;
-      border: none;
-      padding: 1rem 2.2rem;
+    /* Gallery Grid styling */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gallery-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.6s var(--spring-easing), border-color 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: var(--accent);
+      box-shadow: 0 12px 24px var(--shadow);
+    }
+
+    .gallery-img-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      overflow: hidden;
+    }
+
+    .gallery-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--spring-easing);
+    }
+
+    .gallery-item:hover .gallery-img {
+      transform: scale(1.08);
+    }
+
+    .gallery-info {
+      padding: 1.25rem;
+      text-align: left;
+    }
+
+    .gallery-title {
       font-size: 1.05rem;
       font-weight: 600;
-      border-radius: 14px;
-      cursor: pointer;
-      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: scale 0.5s var(--spring-easing), box-shadow 0.3s ease;
+      color: var(--text);
+      margin-bottom: 0.35rem;
     }
 
-    .action-button:hover {
-      scale: 1.06;
-      box-shadow: 0 12px 28px rgba(99, 102, 241, 0.5);
-    }
-
-    .action-button:active {
-      scale: 0.96;
-    }
-
-    /* Language display badge */
-    .lang-indicator {
-      margin-top: 1.5rem;
+    .gallery-desc {
       font-size: 0.85rem;
-      font-weight: 500;
       color: var(--text-secondary);
-      letter-spacing: 0.02em;
-      transition: opacity 0.3s ease;
+      line-height: 1.4;
     }
 
-    /* Footer styling */
+    /* Lightbox Modal */
+    dialog {
+      border: none;
+      background: transparent;
+      max-width: 85vw;
+      max-height: 85vh;
+      outline: none;
+      border-radius: 16px;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin: 0;
+    }
+
+    dialog::backdrop {
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .lightbox-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -1.25rem;
+      right: -1.25rem;
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: scale 0.3s var(--spring-easing), background-color 0.3s ease;
+      z-index: 10;
+    }
+
+    .lightbox-close:hover {
+      scale: 1.1;
+      background: var(--accent);
+      border-color: transparent;
+    }
+
     footer {
       width: 100%;
       padding: 2rem;
@@ -394,23 +470,9 @@
       transform-origin: bottom left;
     }
 
-    /* Animations */
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 0.9;
-        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.15);
-      }
-      50% {
-        opacity: 1;
-        box-shadow: 0 0 0 8px rgba(99, 102, 241, 0);
-      }
-    }
-
-    /* Respect accessibility motion reduction preferences */
     @media (prefers-reduced-motion: reduce) {
-      .card, .theme-toggle, .action-button, h1, .theme-toggle svg {
+      .card, .theme-toggle, .gallery-item, .gallery-img, .theme-toggle svg {
         transition: none !important;
-        animation: none !important;
         scale: 1 !important;
         transform: none !important;
       }
@@ -430,41 +492,74 @@
   <!-- Header Section with Theme Toggle and Navigation -->
   <header>
     <nav class="nav-bar" aria-label="Main Navigation">
-      <a href="index.html" class="nav-link active">Home</a>
+      <a href="index.html" class="nav-link">Home</a>
       <a href="about.html" class="nav-link">About</a>
-      <a href="gallery.html" class="nav-link">Gallery</a>
+      <a href="gallery.html" class="nav-link active">Gallery</a>
       <a href="contact.html" class="nav-link">Contact</a>
     </nav>
     <button class="theme-toggle" id="theme-button" aria-label="Toggle light and dark mode">
-      <!-- SVG icons nested. System default renders correct one via stroke color or custom show/hide -->
       <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <!-- Sun path (will change dynamically to moon) -->
         <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
       </svg>
     </button>
   </header>
 
-  <!-- Main Showcase content -->
+  <!-- Main Content -->
   <main>
     <div class="card-wrapper">
       <section class="card">
-        <span class="badge">Greeting App</span>
-        <h1 id="greeting-title" class="pretty-text">Hello, World!</h1>
+        <span class="badge">Visual Concepts</span>
+        <h1>Design System Showcase</h1>
         <p class="description">
-          A beautifully designed display built with pure, semantic HTML5, high-performance interactive canvases, and physics-based spring easing.
+          A showcase of high-fidelity visual assets, illustrating vibrant color schemes, depth layers, and custom interface elements. Click any element to inspect.
         </p>
         
-        <button class="action-button" id="greeting-btn">
-          <span>Say Hello</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 11-.57-8.38l5.67-5.67"/>
-          </svg>
-        </button>
+        <!-- Gallery Grid -->
+        <div class="gallery-grid">
+          <!-- Item 1 -->
+          <div class="gallery-item" data-image="images/mesh.jpg">
+            <div class="gallery-img-wrapper">
+              <img src="images/mesh.jpg" class="gallery-img" alt="Glowing Glass Mesh waves">
+            </div>
+            <div class="gallery-info">
+              <div class="gallery-title">Fluid Waves</div>
+              <div class="gallery-desc">Organic abstract glass wave forms with rich cyan, blue and purple luminescence.</div>
+            </div>
+          </div>
 
-        <div class="lang-indicator" id="lang-name" aria-live="polite">English</div>
+          <!-- Item 2 -->
+          <div class="gallery-item" data-image="images/cyberpunk.jpg">
+            <div class="gallery-img-wrapper">
+              <img src="images/cyberpunk.jpg" class="gallery-img" alt="Cyberpunk geometric wireframe nodes">
+            </div>
+            <div class="gallery-info">
+              <div class="gallery-title">Geometric Data</div>
+              <div class="gallery-desc">Dynamic HUD cyberpunk network connections displaying high-dimensional encryption layouts.</div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="gallery-item" data-image="images/interface.jpg">
+            <div class="gallery-img-wrapper">
+              <img src="images/interface.jpg" class="gallery-img" alt="Futuristic dashboard HUD glass card widgets">
+            </div>
+            <div class="gallery-info">
+              <div class="gallery-title">Neo-Tokyo Dash</div>
+              <div class="gallery-desc">State of the art automotive head-up display dashboard overlay displaying navigation metadata.</div>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   </main>
+
+  <!-- Native Dialog Lightbox Modal -->
+  <dialog id="lightbox-modal">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightbox-close-btn" aria-label="Close lightbox">&times;</button>
+      <img id="lightbox-img" class="lightbox-img" src="" alt="Zoomed view">
+    </div>
+  </dialog>
 
   <!-- Footer Info -->
   <footer>
@@ -472,31 +567,23 @@
   </footer>
 
   <script>
-    // ----------------------------------------------------
-    // 1. Theme Manager (Light / Dark Mode Custom Override)
-    // ----------------------------------------------------
+    // Theme Manager
     const themeButton = document.getElementById('theme-button');
     const themeIcon = document.getElementById('theme-icon');
     const rootEl = document.documentElement;
 
-    // SVG paths for sun and moon
     const sunPath = "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z";
     const moonPath = "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z";
 
-    // Set initial icon path matching the resolved theme
     function updateThemeIcon(isDark) {
       themeIcon.querySelector('path').setAttribute('d', isDark ? moonPath : sunPath);
     }
 
-    // Detect browser/system preferred color scheme
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    // Initialize theme settings
     let currentTheme = localStorage.getItem('theme');
     if (!currentTheme) {
       currentTheme = mediaQuery.matches ? 'dark' : 'light';
     }
-    
     rootEl.setAttribute('data-theme', currentTheme);
     updateThemeIcon(currentTheme === 'dark');
 
@@ -505,12 +592,9 @@
       rootEl.setAttribute('data-theme', nextTheme);
       localStorage.setItem('theme', nextTheme);
       updateThemeIcon(nextTheme === 'dark');
-      
-      // Trigger subtle particle burst on theme change
       createBurst(e.clientX, e.clientY, 15);
     });
 
-    // Sync if user updates OS preferences while page is open
     mediaQuery.addEventListener('change', (e) => {
       if (!localStorage.getItem('theme')) {
         const nextTheme = e.matches ? 'dark' : 'light';
@@ -519,82 +603,30 @@
       }
     });
 
-    // ----------------------------------------------------
-    // 2. Interactive Backdrop Mouse-Tracking
-    // ----------------------------------------------------
+    // Interactive Backdrop Mouse-Tracking
     const bgGlow = document.getElementById('bg-glow');
     let targetX = 50, targetY = 50;
     let currentX = 50, currentY = 50;
 
     window.addEventListener('mousemove', (e) => {
-      // Convert absolute pixels to percentage positions
       targetX = (e.clientX / window.innerWidth) * 100;
       targetY = (e.clientY / window.innerHeight) * 100;
     });
 
-    // Smooth lerp (linear interpolation) for hover glow tracker
     function updateGlowPosition() {
       currentX += (targetX - currentX) * 0.1;
       currentY += (targetY - currentY) * 0.1;
-      
       bgGlow.style.setProperty('--mouse-x', `${currentX}%`);
       bgGlow.style.setProperty('--mouse-y', `${currentY}%`);
-      
       requestAnimationFrame(updateGlowPosition);
     }
     updateGlowPosition();
 
-    // ----------------------------------------------------
-    // 3. Multilingual "Hello World!" Data & Switcher
-    // ----------------------------------------------------
-    const languages = [
-      { text: "Hello, World!", langName: "English" },
-      { text: "¡Hola, Mundo!", langName: "Spanish" },
-      { text: "Bonjour, le Monde!", langName: "French" },
-      { text: "こんにちは、世界！", langName: "Japanese" },
-      { text: "Mo kí gbogbo Ayé!", langName: "Yoruba" },
-      { text: "Hallo, Welt!", langName: "German" },
-      { text: "Ciao, Mondo!", langName: "Italian" },
-      { text: "你好，世界！", langName: "Mandarin" },
-      { text: "नमस्ते दुनिया!", langName: "Hindi" },
-      { text: "أهلاً بالعالم!", langName: "Arabic" }
-    ];
-
-    let currentIndex = 0;
-    const titleEl = document.getElementById('greeting-title');
-    const langEl = document.getElementById('lang-name');
-    const actionBtn = document.getElementById('greeting-btn');
-
-    actionBtn.addEventListener('click', (e) => {
-      // Increment index
-      currentIndex = (currentIndex + 1) % languages.length;
-      
-      // Animate text change gracefully
-      titleEl.classList.add('switching');
-      
-      // Update text and language info after half transition
-      setTimeout(() => {
-        titleEl.textContent = languages[currentIndex].text;
-        langEl.textContent = languages[currentIndex].langName;
-        titleEl.classList.remove('switching');
-      }, 200);
-
-      // Trigger interactive canvas particles on button click position
-      const rect = actionBtn.getBoundingClientRect();
-      const burstX = rect.left + rect.width / 2;
-      const burstY = rect.top + rect.height / 2;
-      createBurst(burstX, burstY, 35);
-    });
-
-    // ----------------------------------------------------
-    // 4. Interactive Canvas Particle Burst Engine
-    // ----------------------------------------------------
+    // Canvas Particle Engine
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
-    
     let particles = [];
 
-    // Resize canvas to cover viewport
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -606,16 +638,15 @@
       constructor(x, y) {
         this.x = x;
         this.y = y;
-        // Generate random physics properties
         const angle = Math.random() * Math.PI * 2;
-        const velocity = 2 + Math.random() * 6;
+        const velocity = 1.5 + Math.random() * 4;
         this.vx = Math.cos(angle) * velocity;
-        this.vy = Math.sin(angle) * velocity - 1; // Slight upward bias
-        this.radius = 2 + Math.random() * 4;
+        this.vy = Math.sin(angle) * velocity - 0.5;
+        this.radius = 1.5 + Math.random() * 3;
         this.color = getThemeAccentColor();
         this.alpha = 1;
-        this.decay = 0.015 + Math.random() * 0.02;
-        this.gravity = 0.15;
+        this.decay = 0.01 + Math.random() * 0.015;
+        this.gravity = 0.1;
       }
 
       update() {
@@ -636,31 +667,20 @@
       }
     }
 
-    // Dynamically retrieve CSS accent color for canvas particles matching active mode
     function getThemeAccentColor() {
       const theme = rootEl.getAttribute('data-theme');
-      if (theme === 'dark') {
-        return '#6366f1';
-      }
-      return '#4f46e5';
+      return theme === 'dark' ? '#6366f1' : '#4f46e5';
     }
 
-    // Instantiates a cluster of particles at coordinates
     function createBurst(x, y, count) {
-      // Respect prefers-reduced-motion configuration
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        return;
-      }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       for (let i = 0; i < count; i++) {
         particles.push(new Particle(x, y));
       }
     }
 
-    // Particle Animation Loop
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Update and draw existing particles
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.update();
@@ -670,15 +690,50 @@
           p.draw();
         }
       }
-      
       requestAnimationFrame(animateParticles);
     }
     animateParticles();
 
-    // Subtle passive floating particles around card on mouse movement
     window.addEventListener('mousemove', (e) => {
       if (Math.random() < 0.08) {
         createBurst(e.clientX, e.clientY, 1);
+      }
+    });
+
+    // ----------------------------------------------------
+    // Lightbox Logic (Native Dialog)
+    // ----------------------------------------------------
+    const modal = document.getElementById('lightbox-modal');
+    const modalImg = document.getElementById('lightbox-img');
+    const closeBtn = document.getElementById('lightbox-close-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    galleryItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        const imgSrc = item.getAttribute('data-image');
+        modalImg.src = imgSrc;
+        modal.showModal();
+        
+        // Spawn small splash of particles from click
+        createBurst(e.clientX, e.clientY, 20);
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.close();
+    });
+
+    // Close when clicking backdrop
+    modal.addEventListener('click', (e) => {
+      const rect = modal.getBoundingClientRect();
+      const clickOutside = (
+        e.clientX < rect.left ||
+        e.clientX > rect.right ||
+        e.clientY < rect.top ||
+        e.clientY > rect.bottom
+      );
+      if (clickOutside) {
+        modal.close();
       }
     });
   </script>
