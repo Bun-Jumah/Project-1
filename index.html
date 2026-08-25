@@ -134,9 +134,42 @@
       max-width: 1200px;
       padding: 2rem;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
-      z-index: 2;
+      z-index: 3;
+    }
+
+    .nav-bar {
+      display: flex;
+      gap: 0.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.8rem;
+      border-radius: 30px;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 4px 12px var(--shadow);
+      z-index: 4;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.3s ease, transform 0.3s var(--spring-easing), background-color 0.3s ease;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .nav-link.active {
+      color: var(--accent);
+      background: rgba(99, 102, 241, 0.08);
     }
 
     .theme-toggle {
@@ -394,8 +427,13 @@
   <div class="mesh-gradient" id="bg-glow" aria-hidden="true"></div>
   <canvas id="particle-canvas" aria-hidden="true"></canvas>
 
-  <!-- Header Section with Theme Toggle -->
+  <!-- Header Section with Theme Toggle and Navigation -->
   <header>
+    <nav class="nav-bar" aria-label="Main Navigation">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
     <button class="theme-toggle" id="theme-button" aria-label="Toggle light and dark mode">
       <!-- SVG icons nested. System default renders correct one via stroke color or custom show/hide -->
       <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
