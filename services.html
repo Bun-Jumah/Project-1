@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore our high-end, responsive web engineering, custom UI/UX design, cloud architecture, and dynamic brand solutions.">
+  <title>Services - Hello World Agency</title>
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* CSS Variables & Theme Definitions */
+    :root {
+      --bg-light: #f3f4f6;
+      --bg-dark: #08090d;
+      
+      --card-bg-light: rgba(255, 255, 255, 0.45);
+      --card-bg-dark: rgba(13, 16, 23, 0.45);
+      
+      --text-light: #1f2937;
+      --text-dark: #f3f4f6;
+      
+      --text-secondary-light: #4b5563;
+      --text-secondary-dark: #9ca3af;
+      
+      --border-light: rgba(255, 255, 255, 0.4);
+      --border-dark: rgba(255, 255, 255, 0.08);
+      
+      --accent-light: #4f46e5;
+      --accent-dark: #6366f1;
+      
+      --glow-light: rgba(79, 70, 229, 0.08);
+      --glow-dark: rgba(99, 102, 241, 0.18);
+      
+      --shadow-light: rgba(0, 0, 0, 0.08);
+      --shadow-dark: rgba(0, 0, 0, 0.4);
+
+      color-scheme: light dark;
+      
+      --bg: light-dark(var(--bg-light), var(--bg-dark));
+      --card-bg: light-dark(var(--card-bg-light), var(--card-bg-dark));
+      --text: light-dark(var(--text-light), var(--text-dark));
+      --text-secondary: light-dark(var(--text-secondary-light), var(--text-secondary-dark));
+      --border: light-dark(var(--border-light), var(--border-dark));
+      --accent: light-dark(var(--accent-light), var(--accent-dark));
+      --glow: light-dark(var(--glow-light), var(--glow-dark));
+      --shadow: light-dark(var(--shadow-light), var(--shadow-dark));
+
+      --spring-easing: linear(0, 0.016 0.5%, 0.06 1%, 0.226 2%, 1.116 5.4%, 1.375 6.6%, 1.527 7.7%, 1.565 8.2%, 1.585 8.8%, 1.581 9.3%, 1.559 9.8%, 1.458 10.9%, 0.937 14.3%, 0.784 15.5%, 0.693 16.6%, 0.67 17.1%, 0.657 17.7%, 0.671 18.7%, 0.729 19.8%, 1.042 23.3%, 1.13 24.5%, 1.182 25.6%, 1.201 26.7%, 1.192 27.7%, 1.156 28.8%, 0.977 32.2%, 0.925 33.4%, 0.894 34.5%, 0.882 35.6%, 0.887 36.6%, 0.907 37.7%, 1.045 42.4%, 1.069 44.5%, 1.059 46.3%, 0.979 50.9%, 0.96 53.4%, 0.966 55.3%, 1.013 59.9%, 1.024 62.3%, 0.986 71.2%, 1.008 79.9%, 0.995 88.9%, 1);
+    }
+
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: var(--bg-light);
+      --card-bg: var(--card-bg-light);
+      --text: var(--text-light);
+      --text-secondary: var(--text-secondary-light);
+      --border: var(--border-light);
+      --accent: var(--accent-light);
+      --glow: var(--glow-light);
+      --shadow: var(--shadow-light);
+    }
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: var(--bg-dark);
+      --card-bg: var(--card-bg-dark);
+      --text: var(--text-dark);
+      --text-secondary: var(--text-secondary-dark);
+      --border: var(--border-dark);
+      --accent: var(--accent-dark);
+      --glow: var(--glow-dark);
+      --shadow: var(--shadow-dark);
+    }
+
+    /* Core Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      overflow-x: hidden;
+      position: relative;
+      transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mesh-gradient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: 
+        radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--glow) 0%, transparent 60%),
+        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.06) 0%, transparent 35%),
+        radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.06) 0%, transparent 35%);
+      opacity: 1;
+      transition: background-image 0.1s ease;
+    }
+
+    #particle-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    header {
+      width: 100%;
+      max-width: 1200px;
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 3;
+    }
+
+    .nav-bar {
+      display: flex;
+      gap: 0.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.8rem;
+      border-radius: 30px;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 4px 12px var(--shadow);
+      z-index: 4;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.3s ease, transform 0.3s var(--spring-easing), background-color 0.3s ease;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .nav-link.active {
+      color: var(--accent);
+      background: rgba(99, 102, 241, 0.08);
+    }
+
+    .theme-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px var(--shadow);
+      transition: scale 0.5s var(--spring-easing), border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      scale: 1.1;
+      border-color: var(--accent);
+    }
+
+    .theme-toggle:active {
+      scale: 0.95;
+    }
+
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: var(--text);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.5s var(--spring-easing), stroke 0.3s ease;
+    }
+
+    .theme-toggle:hover svg {
+      stroke: var(--accent);
+      transform: rotate(15deg);
+    }
+
+    /* Main Container layout - wider for multiple sections */
+    main {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      padding: 2rem;
+      z-index: 2;
+      gap: 5rem;
+    }
+
+    /* Hero Section */
+    .services-hero {
+      text-align: center;
+      max-width: 800px;
+      margin-top: 1rem;
+    }
+
+    .badge {
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      color: var(--accent);
+      padding: 0.35rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.8rem;
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      text-wrap: balance;
+      background: linear-gradient(135deg, var(--text) 30%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.6rem;
+      }
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 650px;
+      margin: 0 auto 2.5rem;
+      text-wrap: pretty;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .action-button {
+      background: linear-gradient(135deg, var(--accent) 0%, #7c3aed 100%);
+      color: #ffffff;
+      border: none;
+      padding: 1rem 2.2rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: scale 0.5s var(--spring-easing), box-shadow 0.3s ease;
+      text-decoration: none;
+    }
+
+    .action-button:hover {
+      scale: 1.06;
+      box-shadow: 0 12px 28px rgba(99, 102, 241, 0.5);
+    }
+
+    .action-button:active {
+      scale: 0.96;
+    }
+
+    .secondary-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+
+    .secondary-btn:hover {
+      border-color: var(--accent);
+      background: rgba(99, 102, 241, 0.05);
+    }
+
+    /* Grid Section Styles */
+    .services-grid-wrapper {
+      width: 100%;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      background: linear-gradient(135deg, var(--text) 50%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Service Card */
+    .service-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 2.5rem;
+      backdrop-filter: blur(25px) saturate(180%);
+      -webkit-backdrop-filter: blur(25px) saturate(180%);
+      box-shadow: 0 15px 35px var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      transition: transform 0.6s var(--spring-easing), border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(99, 102, 241, 0.4);
+      box-shadow: 0 25px 50px var(--shadow);
+    }
+
+    .service-icon-container {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+      transition: transform 0.5s var(--spring-easing);
+    }
+
+    .service-card:hover .service-icon-container {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .service-icon-container svg {
+      width: 30px;
+      height: 30px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .service-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+    }
+
+    .service-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      text-wrap: pretty;
+    }
+
+    .service-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      width: 100%;
+    }
+
+    .service-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+    }
+
+    .service-feature-item svg {
+      width: 16px;
+      height: 16px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* Calculator Section */
+    .calculator-wrapper {
+      width: 100%;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .calculator-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 3rem;
+      backdrop-filter: blur(25px) saturate(180%);
+      -webkit-backdrop-filter: blur(25px) saturate(180%);
+      box-shadow: 0 20px 40px var(--shadow);
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3rem;
+      position: relative;
+    }
+
+    @media (max-width: 768px) {
+      .calculator-card {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding: 2rem;
+      }
+    }
+
+    .calculator-card::before {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      background: linear-gradient(135deg, var(--accent), #d946ef);
+      border-radius: 28px;
+      z-index: -1;
+      opacity: 0.15;
+      filter: blur(20px);
+      transition: opacity 0.5s ease;
+    }
+
+    .calculator-card:hover::before {
+      opacity: 0.3;
+    }
+
+    .calc-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .calc-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .calc-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+    }
+
+    .calc-selector-grid {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .calc-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 0.7rem 1.2rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      flex-grow: 1;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .calc-btn:hover {
+      color: var(--text);
+      border-color: var(--accent);
+    }
+
+    .calc-btn.active {
+      background: rgba(99, 102, 241, 0.12);
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: inset 0 1px 2px rgba(99, 102, 241, 0.05);
+    }
+
+    /* Calculator Results display */
+    .calc-results {
+      background: rgba(0, 0, 0, 0.15);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    .calc-price-container {
+      margin-bottom: 1.5rem;
+    }
+
+    .calc-price-label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .calc-price-value {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(135deg, var(--text) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .calc-price-timeline {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .calc-deliverables-box {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      text-align: left;
+    }
+
+    .calc-deliverables-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.8rem;
+    }
+
+    .calc-deliverables-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .calc-deliverable-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .calc-deliverable-item svg {
+      width: 14px;
+      height: 14px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* FAQ Section */
+    .faq-wrapper {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 4px 12px var(--shadow);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .faq-item:hover {
+      border-color: rgba(99, 102, 241, 0.25);
+    }
+
+    .faq-header {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .faq-question {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .faq-toggle-icon {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.4s var(--spring-easing);
+      color: var(--text-secondary);
+    }
+
+    .faq-toggle-icon svg {
+      width: 100%;
+      height: 100%;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s var(--spring-easing);
+    }
+
+    .faq-answer-inner {
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Active Accordion Item */
+    .faq-item.active {
+      border-color: rgba(99, 102, 241, 0.3);
+      box-shadow: 0 10px 20px var(--shadow);
+    }
+
+    .faq-item.active .faq-toggle-icon {
+      transform: rotate(180deg);
+      color: var(--accent);
+    }
+
+    /* CTA Section */
+    .cta-wrapper {
+      width: 100%;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(217, 70, 239, 0.08) 100%);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 3.5rem;
+      text-align: center;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      box-shadow: 0 15px 35px var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .cta-desc {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 520px;
+      margin-bottom: 2rem;
+    }
+
+    /* Footer styling */
+    footer {
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+      z-index: 2;
+      border-top: 1px solid var(--border);
+      margin-top: 5rem;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      position: relative;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    footer a::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      bottom: -2px;
+      left: 0;
+      background-color: var(--accent);
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+
+    footer a:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.9;
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.15);
+      }
+      50% {
+        opacity: 1;
+        box-shadow: 0 0 0 8px rgba(99, 102, 241, 0);
+      }
+    }
+
+    /* Respect accessibility motion reduction preferences */
+    @media (prefers-reduced-motion: reduce) {
+      .service-card, .theme-toggle, .action-button, h1, .theme-toggle svg, .faq-toggle-icon, .faq-answer {
+        transition: none !important;
+        animation: none !important;
+        scale: 1 !important;
+        transform: none !important;
+      }
+      
+      .mesh-gradient {
+        background-image: radial-gradient(circle at 50% 50%, var(--glow) 0%, transparent 60%);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Backdrop Elements -->
+  <div class="mesh-gradient" id="bg-glow" aria-hidden="true"></div>
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- Header Section with Theme Toggle and Navigation -->
+  <header>
+    <nav class="nav-bar" aria-label="Main Navigation">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="gallery.html" class="nav-link">Gallery</a>
+      <a href="portfolio.html" class="nav-link">Portfolio</a>
+      <a href="services.html" class="nav-link active">Services</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <button class="theme-toggle" id="theme-button" aria-label="Toggle light and dark mode">
+      <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Main services content -->
+  <main>
+    
+    <!-- Hero Section -->
+    <section class="services-hero">
+      <span class="badge">Our Expertise</span>
+      <h1>Architecting Future-Proof Web Solutions</h1>
+      <p class="hero-subtitle">
+        We specialize in building ultra-premium web systems, bespoke interactive layouts, and scalable cloud engineering aligned with modern standard systems.
+      </p>
+      <div class="hero-actions">
+        <a href="#calculator" class="action-button">
+          <span>Cost Estimator</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/>
+            <line x1="9" y1="9" x2="15" y2="9"/>
+            <line x1="9" y1="13" x2="15" y2="13"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+          </svg>
+        </a>
+        <a href="contact.html" class="action-button secondary-btn">
+          <span>Get in Touch</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- Services Grid Section -->
+    <section class="services-grid-wrapper">
+      <h2 class="section-title">Core Service Offerings</h2>
+      <div class="services-grid">
+        
+        <!-- Card 1: Custom Web Engineering -->
+        <article class="service-card">
+          <div class="service-icon-container">
+            <svg viewBox="0 0 24 24">
+              <polyline points="16 18 22 12 16 6"/>
+              <polyline points="8 6 2 12 8 18"/>
+              <line x1="12" y1="2" x2="12" y2="22"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Bespoke Web Engineering</h3>
+          <p class="service-desc">
+            High-performance applications built with vanilla architectures, modern rendering systems, and interactive client engines.
+          </p>
+          <ul class="service-features">
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Custom Canvas & Particles Systems</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Fully Responsive Layout Structures</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Strict ARIA Accessibility (WCAG Compliant)</span>
+            </li>
+          </ul>
+        </article>
+
+        <!-- Card 2: Interactive UI/UX Design -->
+        <article class="service-card">
+          <div class="service-icon-container">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+              <path d="M12 6V18"/>
+              <path d="M6 12H18"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Premium Interface Design</h3>
+          <p class="service-desc">
+            Stunning fluid layouts leveraging custom transitions, beautiful HSL color systems, and modern glassmorphism components.
+          </p>
+          <ul class="service-features">
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Responsive Web Layout Blueprints</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Dark & Light System Theme Sync</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Physics-based Spring Micro-animations</span>
+            </li>
+          </ul>
+        </article>
+
+        <!-- Card 3: Cloud & Scale Architecture -->
+        <article class="service-card">
+          <div class="service-icon-container">
+            <svg viewBox="0 0 24 24">
+              <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Infrastructure & Cloud Orchestration</h3>
+          <p class="service-desc">
+            Rock-solid cloud foundations configured for automated delivery Pipelines, speed optimization, and secure operations.
+          </p>
+          <ul class="service-features">
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Automated Edge Delivery & Caching</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Static & Serverless Asset Provisioning</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Secure Local Data Synchronization</span>
+            </li>
+          </ul>
+        </article>
+
+        <!-- Card 4: Strategy & Optimization -->
+        <article class="service-card">
+          <div class="service-icon-container">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Performance & SEO Strategy</h3>
+          <p class="service-desc">
+            Tuning core vitals to perfect metrics, executing SEO metadata hierarchies, and refining page loading pipelines.
+          </p>
+          <ul class="service-features">
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Largest Contentful Paint Optimization</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Dynamic Meta tags & Microformats</span>
+            </li>
+            <li class="service-feature-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Progressive Web App Enhancement</span>
+            </li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Interactive Calculator Section -->
+    <section class="calculator-wrapper" id="calculator">
+      <h2 class="section-title">Project Cost Estimator</h2>
+      <div class="calculator-card">
+        
+        <!-- Controls (Left) -->
+        <div class="calc-controls">
+          
+          <div class="calc-group">
+            <span class="calc-label">Select Project Scope</span>
+            <div class="calc-selector-grid" id="scale-selector">
+              <button class="calc-btn active" data-scale="startup" data-price="3500">Startup Package</button>
+              <button class="calc-btn" data-scale="growth" data-price="8500">Growth System</button>
+              <button class="calc-btn" data-scale="enterprise" data-price="17500">Enterprise Core</button>
+            </div>
+          </div>
+
+          <div class="calc-group">
+            <span class="calc-label">Preferred Delivery Timeline</span>
+            <div class="calc-selector-grid" id="timeline-selector">
+              <button class="calc-btn" data-timeline="flexible" data-mod="0.90">Flexible (8+ wks)</button>
+              <button class="calc-btn active" data-timeline="standard" data-mod="1.00">Standard (4-6 wks)</button>
+              <button class="calc-btn" data-timeline="expedited" data-mod="1.25">Expedited (2-3 wks)</button>
+            </div>
+          </div>
+          
+        </div>
+
+        <!-- Output display (Right) -->
+        <div class="calc-results">
+          <div class="calc-price-block">
+            <div class="calc-price-container">
+              <div class="calc-price-label">Estimated Investment</div>
+              <div class="calc-price-value" id="price-display">$3,500</div>
+              <div class="calc-price-timeline" id="timeline-display">Estimated timeline: 4-6 weeks</div>
+            </div>
+          </div>
+
+          <div class="calc-deliverables-box">
+            <div class="calc-deliverables-title">Deliverables Included</div>
+            <ul class="calc-deliverables-list" id="deliverables-display">
+              <!-- Dynamically populated via javascript -->
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FAQ Accordion Section -->
+    <section class="faq-wrapper">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        
+        <div class="faq-item">
+          <div class="faq-header">
+            <h3 class="faq-question">What is your typical project onboarding workflow?</h3>
+            <div class="faq-toggle-icon">
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              We begin with a strategic consultation and requirement mapping. From there, we build high-fidelity interactive wireframes, engineer the frontend architecture, synchronize style parameters, and run automated verification benchmarks before deployment.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-header">
+            <h3 class="faq-question">Do you offer ongoing performance audits and updates?</h3>
+            <div class="faq-toggle-icon">
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Yes, all our service packages include standard maintenance phases post-launch. For continuous upgrades, theme revisions, and regular performance audits (Core Web Vitals), we provide customized SLA packages aligned with your traffic volume.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-header">
+            <h3 class="faq-question">How does the interactive cost estimator calculate prices?</h3>
+            <div class="faq-toggle-icon">
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              The estimator is built upon base milestones required for each package level. Selecting a rush order (Expedited) adjusts resource allocation to prioritize acceleration (+25% modifier), whereas standard timelines (+0%) and flexible schedules (-10%) optimize resource structures.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-header">
+            <h3 class="faq-question">Can we integrate legacy APIs or third-party CRM structures?</h3>
+            <div class="faq-toggle-icon">
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Absolutely. Our custom engineering scope explicitly supports REST/GraphQL backend connections, OAuth secure logins, real-time database syncing, and payment gateways. We construct abstraction layers to ensure security parameters are maintained.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-wrapper">
+      <div class="cta-card">
+        <h2 class="cta-title">Ready to Elevate Your Digital Footprint?</h2>
+        <p class="cta-desc">
+          Get in touch with us today to discuss your project requirements and receive a customized service proposal.
+        </p>
+        <a href="contact.html" class="action-button">
+          <span>Start Project Conversation</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Info -->
+  <footer>
+    <p>Crafted with premium UI styling &bull; <a href="https://github.com" target="_blank" rel="noopener">Learn More</a></p>
+  </footer>
+
+  <script>
+    // ----------------------------------------------------
+    // 1. Theme Manager (Light / Dark Mode Custom Override)
+    // ----------------------------------------------------
+    const themeButton = document.getElementById('theme-button');
+    const themeIcon = document.getElementById('theme-icon');
+    const rootEl = document.documentElement;
+
+    // SVG paths for sun and moon
+    const sunPath = "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z";
+    const moonPath = "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z";
+
+    function updateThemeIcon(isDark) {
+      themeIcon.querySelector('path').setAttribute('d', isDark ? moonPath : sunPath);
+    }
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    let currentTheme = localStorage.getItem('theme');
+    if (!currentTheme) {
+      currentTheme = mediaQuery.matches ? 'dark' : 'light';
+    }
+    
+    rootEl.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme === 'dark');
+
+    themeButton.addEventListener('click', (e) => {
+      const nextTheme = rootEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      rootEl.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('theme', nextTheme);
+      updateThemeIcon(nextTheme === 'dark');
+      
+      createBurst(e.clientX, e.clientY, 15);
+    });
+
+    mediaQuery.addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        const nextTheme = e.matches ? 'dark' : 'light';
+        rootEl.setAttribute('data-theme', nextTheme);
+        updateThemeIcon(nextTheme === 'dark');
+      }
+    });
+
+    // ----------------------------------------------------
+    // 2. Interactive Backdrop Mouse-Tracking
+    // ----------------------------------------------------
+    const bgGlow = document.getElementById('bg-glow');
+    let targetX = 50, targetY = 50;
+    let currentX = 50, currentY = 50;
+
+    window.addEventListener('mousemove', (e) => {
+      targetX = (e.clientX / window.innerWidth) * 100;
+      targetY = (e.clientY / window.innerHeight) * 100;
+    });
+
+    function updateGlowPosition() {
+      currentX += (targetX - currentX) * 0.1;
+      currentY += (targetY - currentY) * 0.1;
+      
+      bgGlow.style.setProperty('--mouse-x', `${currentX}%`);
+      bgGlow.style.setProperty('--mouse-y', `${currentY}%`);
+      
+      requestAnimationFrame(updateGlowPosition);
+    }
+    updateGlowPosition();
+
+    // ----------------------------------------------------
+    // 3. Interactive Canvas Particle Burst Engine
+    // ----------------------------------------------------
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = 2 + Math.random() * 6;
+        this.vx = Math.cos(angle) * velocity;
+        this.vy = Math.sin(angle) * velocity - 1;
+        this.radius = 2 + Math.random() * 4;
+        this.color = getThemeAccentColor();
+        this.alpha = 1;
+        this.decay = 0.015 + Math.random() * 0.02;
+        this.gravity = 0.15;
+      }
+
+      update() {
+        this.vy += this.gravity;
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= this.decay;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function getThemeAccentColor() {
+      const theme = rootEl.getAttribute('data-theme');
+      return theme === 'dark' ? '#6366f1' : '#4f46e5';
+    }
+
+    function createBurst(x, y, count) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+      }
+      for (let i = 0; i < count; i++) {
+        particles.push(new Particle(x, y));
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.update();
+        if (p.alpha <= 0) {
+          particles.splice(i, 1);
+        } else {
+          p.draw();
+        }
+      }
+      
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    window.addEventListener('mousemove', (e) => {
+      if (Math.random() < 0.05) {
+        createBurst(e.clientX, e.clientY, 1);
+      }
+    });
+
+    // ----------------------------------------------------
+    // 4. Project Cost Calculator Logic
+    // ----------------------------------------------------
+    const scaleBtns = document.querySelectorAll('#scale-selector .calc-btn');
+    const timelineBtns = document.querySelectorAll('#timeline-selector .calc-btn');
+    const priceDisplay = document.getElementById('price-display');
+    const timelineDisplay = document.getElementById('timeline-display');
+    const deliverablesDisplay = document.getElementById('deliverables-display');
+
+    // Deliverables dictionary matching selected package
+    const deliverablesList = {
+      startup: [
+        "Responsive Landing Page structure",
+        "Form submission & lead pipelines",
+        "Search visibility schema optimizations",
+        "1 Month direct deployment support"
+      ],
+      growth: [
+        "Up to 5 page dynamic web applications",
+        "Custom interactive canvas graphics",
+        "Performance optimization (95+ Lighthouse score)",
+        "3 Months ongoing updates & support"
+      ],
+      enterprise: [
+        "Tailored web dashboard architecture",
+        "Custom backend integrations & cloud databases",
+        "Multi-layered encryption & security parameters",
+        "Priority 24/7 technical operations SLA"
+      ]
+    };
+
+    const timelinesText = {
+      flexible: "Estimated timeline: 8+ weeks (Flexible schedule)",
+      standard: "Estimated timeline: 4-6 weeks (Standard schedule)",
+      expedited: "Estimated timeline: 2-3 weeks (Expedited execution)"
+    };
+
+    let activeBasePrice = 3500;
+    let activeModifier = 1.00;
+    let activeScale = "startup";
+    let activeTimeline = "standard";
+    let currentCalculatedPrice = 3500;
+
+    // Helper to format currency
+    function formatCurrency(val) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0
+      }).format(val);
+    }
+
+    // Number count animation for pricing transitions
+    let countInterval;
+    function animatePriceTo(targetPrice) {
+      clearInterval(countInterval);
+      const startPrice = currentCalculatedPrice;
+      const duration = 400; // ms
+      const startTime = performance.now();
+
+      function updateNumber(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function (easeOutQuad)
+        const ease = progress * (2 - progress);
+        const currentVal = Math.round(startPrice + (targetPrice - startPrice) * ease);
+        
+        priceDisplay.textContent = formatCurrency(currentVal);
+        
+        if (progress < 1) {
+          requestAnimationFrame(updateNumber);
+        } else {
+          currentCalculatedPrice = targetPrice;
+          priceDisplay.textContent = formatCurrency(targetPrice);
+        }
+      }
+      requestAnimationFrame(updateNumber);
+    }
+
+    function recalculateQuote(triggerBurst = false, burstEvent = null) {
+      const finalQuote = Math.round(activeBasePrice * activeModifier);
+      animatePriceTo(finalQuote);
+      
+      // Update text details
+      timelineDisplay.textContent = timelinesText[activeTimeline];
+      
+      // Populate deliverables
+      deliverablesDisplay.innerHTML = "";
+      deliverablesList[activeScale].forEach(item => {
+        const li = document.createElement('li');
+        li.className = "calc-deliverable-item";
+        li.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>${item}</span>
+        `;
+        deliverablesDisplay.appendChild(li);
+      });
+
+      // Subtle particle animation on button clicks
+      if (triggerBurst && burstEvent) {
+        createBurst(burstEvent.clientX, burstEvent.clientY, 12);
+      }
+    }
+
+    // Add event listeners to scale buttons
+    scaleBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        scaleBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeBasePrice = parseFloat(btn.getAttribute('data-price'));
+        activeScale = btn.getAttribute('data-scale');
+        recalculateQuote(true, e);
+      });
+    });
+
+    // Add event listeners to timeline buttons
+    timelineBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        timelineBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeModifier = parseFloat(btn.getAttribute('data-mod'));
+        activeTimeline = btn.getAttribute('data-timeline');
+        recalculateQuote(true, e);
+      });
+    });
+
+    // Run initial configuration
+    recalculateQuote();
+
+    // ----------------------------------------------------
+    // 5. FAQ Accordion Logic
+    // ----------------------------------------------------
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const header = item.querySelector('.faq-header');
+      const answer = item.querySelector('.faq-answer');
+      
+      header.addEventListener('click', (e) => {
+        const isActive = item.classList.contains('active');
+        
+        // Close all other items first
+        faqItems.forEach(otherItem => {
+          otherItem.classList.remove('active');
+          otherItem.querySelector('.faq-answer').style.maxHeight = '0px';
+        });
+
+        // Toggle state of clicked item
+        if (!isActive) {
+          item.classList.add('active');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+          createBurst(e.clientX, e.clientY, 6);
+        }
+      });
+    });
+
+  </script>
+</body>
+</html>
